@@ -16,6 +16,16 @@
         state: restarted
         daemon_reload: true
 
+  pre_tasks:
+
+    - name: Create compatibility link node-22
+      ansible.builtin.file:
+        src: /usr/bin/node22
+        dest: /usr/bin/node-22
+        state: link
+        owner: root
+        group: root
+
   tasks:
 
     - name: Create the Directories /home/ghost/.ansible/ and /home/ghost/.ansible/tmp
