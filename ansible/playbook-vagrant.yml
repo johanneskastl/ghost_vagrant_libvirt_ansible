@@ -1,6 +1,13 @@
 ---
 
 #
+# bootstrap python3-libdnf5
+#
+
+- name: Run playbook-all_nodes-bootstrap_python3-libdnf5.yml
+  ansible.builtin.import_playbook: playbook-all_nodes-bootstrap_python3-libdnf5.yml
+
+#
 # general configuration
 #
 
