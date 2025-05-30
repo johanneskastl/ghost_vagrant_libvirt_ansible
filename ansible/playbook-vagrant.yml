@@ -23,6 +23,9 @@
 - name: Run playbook-all_nodes-minimal_bashrc.yml
   ansible.builtin.import_playbook: playbook-all_nodes-minimal_bashrc.yml
 
+- name: Run playbook-all_nodes-update_all_packages.yml
+  ansible.builtin.import_playbook: playbook-all_nodes-update_all_packages.yml
+
 - name: Run playbook-all_nodes-set_SELINUX_to_permissive.yml
   ansible.builtin.import_playbook: playbook-all_nodes-set_SELINUX_to_permissive.yml
 
