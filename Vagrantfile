@@ -1,10 +1,10 @@
 Vagrant.configure("2") do |config|
 
   # name the VMs
-  config.vm.define "ghost-almalinux10" do |node|
+  config.vm.define "ghost-fedora41" do |node|
 
     # which image to use
-    node.vm.box = "almalinux/10"
+    node.vm.box = "fedora/41-cloud-base"
 
     # sizing of the VMs
     node.vm.provider "libvirt" do |lv|
@@ -14,7 +14,7 @@ Vagrant.configure("2") do |config|
     end
 
     # set the hostname
-    node.vm.hostname = "ghost-almalinux10"
+    node.vm.hostname = "ghost-fedora41"
 
     # disable shared folders
     node.vm.synced_folder ".", "/vagrant", disabled: true
