@@ -1,0 +1,13 @@
+---
+- name: 'Bootstrap python3-libdnf5'
+  hosts: 'all'
+  gather_facts: false
+  become: true
+
+  tasks:
+
+    - name: 'Bootstrap python3-libdnf5'
+      ansible.builtin.raw: LANG=C dnf --assumeyes install python3-libdnf5
+      register: dnf_install_output
+      changed_when:
+        - "'Nothing to do' not in dnf_install_output.stdout"
