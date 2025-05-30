@@ -32,8 +32,8 @@
     - name: Install the mariadb packages
       ansible.builtin.package:
         name:
+          - mariadb
           - mariadb-server
-          - mariadb-client-utils
 
     - name: Start the MariaDB server
       ansible.builtin.service:
@@ -54,7 +54,7 @@
         # But we need to use the socket-based login.
         #
         login_user: root
-        login_unix_socket: /var/lib/mysql/mysql.sock
+        login_unix_socket: /run/mysql/mysql.sock
         check_implicit_admin: true
         #
         name: root
