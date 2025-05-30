@@ -1,0 +1,12 @@
+---
+- name: Update all packages
+  hosts: all
+  gather_facts: true
+  become: true
+
+  tasks:
+
+    - name: Update all packages
+      ansible.builtin.package:
+        name: '*'
+        state: latest
