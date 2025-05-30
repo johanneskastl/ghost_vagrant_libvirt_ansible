@@ -1,6 +1,13 @@
 ---
 
 #
+# bootstrap python311
+#
+
+- name: Run playbook-all_nodes-bootstrap_python311.yml
+  ansible.builtin.import_playbook: playbook-all_nodes-bootstrap_python311.yml
+
+#
 # general configuration
 #
 
