@@ -28,3 +28,6 @@
 [submodule "ansible/roles/johanneskastl.zypper_ref_accept_keys"]
 	path = ansible/roles/johanneskastl.zypper_ref_accept_keys
 	url = https://github.com/johanneskastl/ansible-role-zypper_ref_accept_keys.git
+[submodule "ansible/roles/johanneskastl.set_SELINUX_to_permissive"]
+	path = ansible/roles/johanneskastl.set_SELINUX_to_permissive
+	url = https://github.com/johanneskastl/ansible-role-set_SELINUX_to_permissive.git
