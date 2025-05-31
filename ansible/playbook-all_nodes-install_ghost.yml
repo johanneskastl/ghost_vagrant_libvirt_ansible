@@ -39,7 +39,7 @@
 
     - name: Run ghost install --no-setup
       ansible.builtin.command:
-        cmd: /usr/local/bin/ghost install --no-setup
+        cmd: /usr/bin/ghost install --no-setup
         chdir: /srv/ghost/
         creates: /srv/ghost/.ghost-cli
       become: true
