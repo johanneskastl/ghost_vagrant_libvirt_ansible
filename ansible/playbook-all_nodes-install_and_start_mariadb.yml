@@ -1,0 +1,85 @@
+---
+- name: Install and start a MariaDB database server
+  hosts: all
+  gather_facts: true
+  become: true
+
+  module_defaults:
+    community.mysql.mysql_user:
+      column_case_sensitive: true
+
+  pre_tasks:
+
+    - name: Install ACL package to work around "temporary files" errors in Ansible
+      ansible.builtin.package:
+        name: acl
+        state: present
+
+    - name: Install the python3-PyMySQL package
+      ansible.builtin.package:
+        name: python3-PyMySQL
+        state: present
+
+  handlers:
+
+    - name: Restart the MariaDB server
+      ansible.builtin.service:
+        name: mariadb
+        state: restarted
+
+  tasks:
+
+    - name: Install the mariadb packages
+      ansible.builtin.package:
+        name:
+          - mariadb-server
+          - mariadb-client-utils
+
+    - name: Start the MariaDB server
+      ansible.builtin.service:
+        name: mariadb
+        state: started
+
+    - name: Enable the MariaDB server
+      ansible.builtin.service:
+        name: mariadb
+        enabled: true
+
+    - name: Set the root user's password
+      community.mysql.mysql_user:
+        #
+        # Do not specify any credentials in this task.
+        # At this point the root user still has an
+        # empty password...
+        # But we need to use the socket-based login.
+        #
+        login_user: root
+        login_unix_socket: /var/lib/mysql/mysql.sock
+        check_implicit_admin: true
+        #
+        name: root
+        # This should totally not be in a playbook,
+        # but rather in Ansible Vault...
+        password: asupertotallysecurePasswordthatshouldtotallybeinAnsibleVault
+
+    - name: Create the /root/.my.cnf file
+      ansible.builtin.copy:
+        dest: /root/.my.cnf
+        owner: root
+        group: root
+        mode: '0600'
+        content: |
+          [client]
+          user=root
+          password=asupertotallysecurePasswordthatshouldtotallybeinAnsibleVault
+
+    - name: Remove the anonymous user account for localhost
+      community.mysql.mysql_user:
+        #
+        # No login details needed, as we have
+        # created the /root/.my.cnf file
+        #
+        host: localhost
+        #
+        name: ""
+        state: absent
