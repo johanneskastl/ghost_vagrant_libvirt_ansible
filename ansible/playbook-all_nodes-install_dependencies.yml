@@ -5,7 +5,33 @@
   become: true
 
   roles:
+
     - role: 'johanneskastl.install_one_or_more_packages'
       packages_to_be_installed:
         - nginx
-        - nodejs
+        - apt-transport-https
+        - curl
+
+  post_tasks:
+
+    - name: Add the nodesource repository key
+      ansible.builtin.get_url:
+        url: https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key
+        dest: /usr/share/keyrings/nodesource.key
+        mode: '0644'
+
+    - name: Add the nodesource repository
+      ansible.builtin.copy:
+        dest: /etc/apt/sources.list.d/nodesource.list
+        owner: root
+        group: root
+        mode: '0644'
+        content: |
+          deb [arch=amd64 signed-by=/usr/share/keyrings/nodesource.key] https://deb.nodesource.com/node_22.x nodistro main
+
+    - name: Install nodejs
+      ansible.builtin.package:
+        name:
+          - nodejs
+        state: present
+        update_cache: true
