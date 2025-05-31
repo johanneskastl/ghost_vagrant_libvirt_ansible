@@ -28,8 +28,14 @@ configuration.
    ansible-galaxy collection install -r requirements.yml
    ```
 
-1. Fetch the Vagrant box, on this branch this is `fedora/41-cloud-base`, using
-   `vagrant box add fedora/41-cloud-base`.
+1. Fetch the Vagrant box using the following command:
+
+   ```
+   vagrant box add --name fedora42 https://download.fedoraproject.org/pub/fedora/linux/releases/42/Cloud/x86_64/images/Fedora-Cloud-Base-Vagrant-libvirt-42-1.1.x86_64.vagrant.libvirt.box
+   ```
+
+   Currently there is no box for Fedora 42 available through app.vagrantup.com,
+   hence the manual download command.
 1. Make sure the git submodules are fully working by issuing `git submodule init
    && git submodule update`
 1. Run `vagrant up`
