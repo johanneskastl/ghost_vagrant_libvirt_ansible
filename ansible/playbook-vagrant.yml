@@ -28,3 +28,10 @@
 
 - name: Run playbook-all_nodes-configure_a_mariadb_database.yml
   ansible.builtin.import_playbook: playbook-all_nodes-configure_a_mariadb_database.yml
+
+#
+# Ghost
+#
+
+- name: Run playbook-all_nodes-create_the_ghost_user.yml
+  ansible.builtin.import_playbook: playbook-all_nodes-create_the_ghost_user.yml
