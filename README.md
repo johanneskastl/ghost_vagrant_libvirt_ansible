@@ -28,8 +28,8 @@ configuration.
    ansible-galaxy collection install -r requirements.yml
    ```
 
-1. Fetch the Vagrant box, per default this is `cloud-image/ubuntu-24.04`, using `vagrant box
-   add cloud-image/ubuntu-24.04`.
+1. Fetch the Vagrant box, per default this is `debian/bookworm64`, using `vagrant box
+   add debian/bookworm64`.
 1. Make sure the git submodules are fully working by issuing `git submodule init
    && git submodule update`
 1. Run `vagrant up`
