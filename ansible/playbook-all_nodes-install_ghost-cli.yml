@@ -1,0 +1,12 @@
+---
+- name: 'Install the Ghost CLI'
+  hosts: 'all'
+  gather_facts: true
+  become: true
+
+  tasks:
+
+    - name: 'Install the ghost-cli using npm'
+      community.general.npm:
+        name: ghost-cli
+        global: true
