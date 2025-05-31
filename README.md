@@ -28,8 +28,8 @@ configuration.
    ansible-galaxy collection install -r requirements.yml
    ```
 
-1. Fetch the Vagrant box, per default this is `almalinux/10`, using `vagrant box
-   add almalinux/10`.
+1. Fetch the Vagrant box, on this branch this is `fedora/41-cloud-base`, using
+   `vagrant box add fedora/41-cloud-base`.
 1. Make sure the git submodules are fully working by issuing `git submodule init
    && git submodule update`
 1. Run `vagrant up`
