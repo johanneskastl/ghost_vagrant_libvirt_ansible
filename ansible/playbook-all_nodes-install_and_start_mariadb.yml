@@ -34,6 +34,7 @@
         name:
           - mariadb-server
           - mariadb-client
+        update_cache: true
 
     - name: Start the MariaDB server
       ansible.builtin.service:
