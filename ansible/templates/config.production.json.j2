@@ -1,0 +1,36 @@
+{
+  "url": "http://ghost.{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}.sslip.io",
+  "admin": {
+    "url": "http://ghost.{{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}.sslip.io/ghost/"
+  },
+  "server": {
+    "port": 2368,
+    "host": "127.0.0.1"
+  },
+  "database": {
+    "client": "mysql",
+    "connection": {
+      "host": "localhost",
+      "user": "ghost",
+      "password": "atotallysecurepassword",
+      "database": "ghost"
+    }
+  },
+  "mail": {
+    "transport": "Direct"
+  },
+  "logging": {
+    "transports": [
+      "file",
+      "stdout"
+    ]
+  },
+  "process": "systemd",
+  "paths": {
+    "contentPath": "/srv/ghost/content"
+  },
+  "bootstrap-socket": {
+    "port": 8000,
+    "host": "localhost"
+  }
+}
