@@ -1,0 +1,109 @@
+---
+- name: 'Install Ghost'
+  hosts: 'all'
+  gather_facts: true
+  become: true
+
+  handlers:
+
+    - name: systemctl daemon-reload
+      ansible.builtin.systemd:
+        daemon_reload: true
+
+    - name: Restart nginx
+      ansible.builtin.service:
+        name: nginx
+        state: restarted
+        daemon_reload: true
+
+  tasks:
+
+    - name: Create the Directories /home/ghost/.ansible/ and /home/ghost/.ansible/tmp
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: directory
+        owner: ghost
+        group: ghost
+        mode: '0700'
+      loop:
+        - /home/ghost/.ansible/
+        - /home/ghost/.ansible/tmp/
+
+    - name: Create the directory /srv/ghost/
+      ansible.builtin.file:
+        path: /srv/ghost/
+        state: directory
+        owner: ghost
+        group: ghost
+        mode: '0755'
+
+    - name: Run ghost install --no-setup
+      ansible.builtin.command:
+        cmd: /usr/local/bin/ghost install --no-setup
+        chdir: /srv/ghost/
+        creates: /srv/ghost/.ghost-cli
+      become: true
+      become_user: ghost
+
+    - name: Create /srv/ghost/config.production.json
+      ansible.builtin.template:
+        src: config.production.json.j2
+        dest: /srv/ghost/config.production.json
+        owner: ghost
+        group: ghost
+        mode: '0744'
+
+    #
+    # Nginx
+    #
+
+    - name: Create /etc/nginx/conf.d/ghost.conf
+      ansible.builtin.template:
+        src: etc_nginx_conf.d_ghost.conf.j2
+        dest: /etc/nginx/conf.d/ghost.conf
+        owner: root
+        group: root
+        mode: '0644'
+      notify:
+        - Restart nginx
+
+    #
+    # systemd units etc.
+    #
+
+    - name: Create the systemd unit
+      ansible.builtin.template:
+        src: ghost_ghost-vagrant-libvirt.service.j2
+        dest: /etc/systemd/system/ghost_ghost-vagrant-libvirt.service
+        owner: root
+        group: root
+        mode: '0644'
+      notify:
+        - systemctl daemon-reload
+
+    - name: Flush handlers
+      ansible.builtin.meta: flush_handlers
+
+    - name: Start nginx
+      ansible.builtin.service:
+        name: nginx
+        state: started
+        daemon_reload: true
+
+    - name: Enable nginx
+      ansible.builtin.service:
+        name: nginx
+        enabled: true
+        daemon_reload: true
+
+    - name: Start ghost_ghost-vagrant-libvirt.service
+      ansible.builtin.service:
+        name: ghost_ghost-vagrant-libvirt.service
+        state: started
+        daemon_reload: true
+
+    - name: Enable ghost_ghost-vagrant-libvirt.service
+      ansible.builtin.service:
+        name: ghost_ghost-vagrant-libvirt.service
+        enabled: true
+        daemon_reload: true
