@@ -15,9 +15,9 @@
         name: acl
         state: present
 
-    - name: Install the python3-PyMySQL package
+    - name: Install the python311-PyMySQL package
       ansible.builtin.package:
-        name: python3-PyMySQL
+        name: python311-PyMySQL
         state: present
 
   tasks:
