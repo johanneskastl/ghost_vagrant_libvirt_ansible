@@ -18,3 +18,10 @@
 
 - name: Run playbook-all_nodes-set_SELINUX_to_permissive.yml
   ansible.builtin.import_playbook: playbook-all_nodes-set_SELINUX_to_permissive.yml
+
+#
+# MariaDB
+#
+
+- name: Run playbook-all_nodes-install_and_start_mariadb.yml
+  ansible.builtin.import_playbook: playbook-all_nodes-install_and_start_mariadb.yml
