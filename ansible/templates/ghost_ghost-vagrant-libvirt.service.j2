@@ -1,0 +1,16 @@
+[Unit]
+Description=Ghost systemd service for blog: ghost-vagrant-libvirt
+Documentation=https://ghost.org/docs/
+
+[Service]
+Type=simple
+WorkingDirectory=/srv/ghost
+User=ghost
+Group=ghost
+Environment="NODE_ENV=production"
+ExecStart=/usr/bin/node-22 /usr/local/bin/ghost run
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+
