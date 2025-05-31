@@ -11,7 +11,7 @@ The `main` branch uses AlmaLinux 10. Although that can be changed in the
 Vagrantfile, please beware that this will break the Ansible provisioning.
 
 At the time of writing, there are branches for Fedora 41, Fedora 42, openSUSE
-Leap 15.6, openSUSE Tumbleweed, Ubuntu 22.04 and Ubuntu 24.04.
+Leap 15.6, openSUSE Tumbleweed, Debian12, Ubuntu 22.04 and Ubuntu 24.04.
 
 Due to the fact that Ghost only supports Ubuntu officially and fails to detect
 Nginx on other OSes, Ansible does some steps manually, e.g. creating the Nginx
