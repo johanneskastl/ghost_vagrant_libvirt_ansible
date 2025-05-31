@@ -35,3 +35,6 @@
 
 - name: Run playbook-all_nodes-create_the_ghost_user.yml
   ansible.builtin.import_playbook: playbook-all_nodes-create_the_ghost_user.yml
+
+- name: Run playbook-all_nodes-install_dependencies.yml
+  ansible.builtin.import_playbook: playbook-all_nodes-install_dependencies.yml
