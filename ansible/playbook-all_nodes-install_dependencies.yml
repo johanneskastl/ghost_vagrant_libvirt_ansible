@@ -9,3 +9,4 @@
       packages_to_be_installed:
         - nginx
         - nodejs
+        - npm
