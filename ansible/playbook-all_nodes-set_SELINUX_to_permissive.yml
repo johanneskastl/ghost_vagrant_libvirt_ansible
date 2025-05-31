@@ -1,0 +1,11 @@
+---
+- name: Set SELINUX to permissive
+  hosts: all
+  gather_facts: true
+  become: true
+
+  roles:
+
+    - role: johanneskastl.set_SELINUX_to_permissive
+      when:
+        - ansible_os_family == "RedHat" or ansible_os_family == "Rocky"
