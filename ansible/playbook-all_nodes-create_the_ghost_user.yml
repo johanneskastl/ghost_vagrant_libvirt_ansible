@@ -1,0 +1,26 @@
+---
+- name: Create the Ghost user and group
+  hosts: all
+  gather_facts: true
+  become: true
+
+  tasks:
+
+    - name: Create the Ghost group
+      ansible.builtin.group:
+        name: ghost
+        state: present
+
+    - name: Create the Ghost user
+      ansible.builtin.user:
+        name: ghost
+        group: ghost
+
+    - name: Allow passwordless sudo access for the ghost user
+      ansible.builtin.copy:
+        dest: /etc/sudoers.d/ghost
+        owner: root
+        group: root
+        mode: '0644'
+        content: |
+          ghost     ALL=(ALL)     NOPASSWD: ALL
