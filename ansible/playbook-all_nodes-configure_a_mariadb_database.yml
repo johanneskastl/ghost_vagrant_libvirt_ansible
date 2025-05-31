@@ -1,0 +1,45 @@
+---
+- name: Configure a MariaDB database
+  hosts: all
+  gather_facts: true
+  become: true
+
+  module_defaults:
+    community.mysql.mysql_user:
+      column_case_sensitive: true
+
+  pre_tasks:
+
+    - name: Install ACL package to work around "temporary files" errors in Ansible
+      ansible.builtin.package:
+        name: acl
+        state: present
+
+    - name: Install the python3-PyMySQL package
+      ansible.builtin.package:
+        name: python3-PyMySQL
+        state: present
+
+  tasks:
+
+    - name: Create new database ghost
+      community.mysql.mysql_db:
+        #
+        # No login details needed, as we have
+        # created the /root/.my.cnf file
+        #
+        name: ghost
+        state: present
+
+    - name: Create the ghost@localhost user
+      community.mysql.mysql_user:
+        #
+        # No login details needed, as we have
+        # created the /root/.my.cnf file
+        #
+        name: ghost
+        # This should totally not be in a playbook,
+        # but rather in Ansible Vault...
+        password: atotallysecurepassword
+        #
+        priv: 'ghost.*:ALL'
