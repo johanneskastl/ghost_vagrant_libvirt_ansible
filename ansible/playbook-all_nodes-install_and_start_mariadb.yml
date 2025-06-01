@@ -33,7 +33,6 @@
       ansible.builtin.package:
         name:
           - mariadb-server
-          - mariadb-client-utils
 
     - name: Start the MariaDB server
       ansible.builtin.service:
